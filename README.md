@@ -1,5 +1,9 @@
-              BLOCKADE - SISTEMA DE CONTROL PARENTAL Y FILTRADO DNS
-=============================================================================
+==============================================================================
+             BLOCKADE - SISTEMA DE CONTROL PARENTAL Y FILTRADO DNS
+              
+              
+              
+              
 Autor: Álvaro González Román
 Proyecto Final de Grado - Sistemas Microinformáticos y Redes (SMR)
 Año: 2026
