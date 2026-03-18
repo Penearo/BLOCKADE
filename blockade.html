@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="logo-blockade.png">
+  <title>Blockade – Manual de Usuario</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=DM+Sans:opsz,wght@9..40,300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* Variables globales de colores y tamaños */
+    :root {
+      --bg: #080c14;
+      --surface: #0f1520;
+      --card: #131b28;
+      --border: #1e2d40;
+      --border-light: #253447;
+      --accent: #00d4ff;
+      --accent2: #6d28d9;
+      --text: #dde6f0;
+      --muted: #5a7290;
+      --muted2: #7a94ad;
+      --success: #0ea472;
+      --warning: #d97706;
+      --danger: #dc2626;
+    }
+
+    /* Reset global para eliminar márgenes y paddings por defecto */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    /* Comportamiento de scroll suave en toda la página */
+    html { scroll-behavior: smooth; }
+
+    /* Estilos del cuerpo de la página */
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.85;
+      overflow-x: hidden;
+    }
+
+    /* HEADER */
+    header {
+      position: relative;
+      padding: 90px 6vw 70px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* Barra superior con información del proyecto */
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: .7rem; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 28px;
+    }
+    .eyebrow-line { width: 32px; height: 1px; background: var(--accent); opacity: .6; }
+    .eyebrow-dot { width: 5px; height: 5px; background: var(--accent); border-radius: 50%; }
+
+
+    h1 {
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 700; line-height: 1.0; letter-spacing: -.04em;
+      margin-bottom: 6px;
+    }
+    .h1-sub {
+      font-size: clamp(1.6rem, 4vw, 3.2rem);
+      font-weight: 300; letter-spacing: -.02em; color: var(--muted2);
+      line-height: 1.15; margin-bottom: 32px;
+    }
+    .accent-word {
+      background: linear-gradient(100deg, var(--accent) 0%, #4fc3f7 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    .header-meta {
+      display: flex; gap: 40px; flex-wrap: wrap;
+      padding-top: 32px; border-top: 1px solid var(--border);
+    }
+    .meta-item { display: flex; flex-direction: column; gap: 4px; }
+    .meta-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: .65rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted);
+    }
+    .meta-value { font-size: .95rem; font-weight: 500; color: var(--text); }
+
+    .header-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+    .header-logo {
+      width: 200px;
+      height: auto;
+      filter: drop-shadow(0 8px 15px rgba(0, 212, 255, 0.2));
+    }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0;
+      background: rgba(8,12,20,.94); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 6vw; display: flex; overflow-x: auto;
+      -webkit-overflow-scrolling: touch; z-index: 100;
+    }
+    nav::-webkit-scrollbar { display: none; }
+    nav a {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 14px 18px; color: var(--muted2); text-decoration: none;
+      font-family: 'IBM Plex Mono', monospace; font-size: .72rem;
+      letter-spacing: .06em; white-space: nowrap;
+      border-bottom: 2px solid transparent; transition: color .2s, border-color .2s;
+    }
+    .nav-num { font-size: .6rem; color: var(--muted); }
+    nav a:hover { color: var(--text); }
+    nav a.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+    /* MAIN */
+    main { max-width: 860px; margin: 0 auto; padding: 72px 6vw 120px; }
+
+    /* SECTION */
+    section {
+      margin-bottom: 100px;
+    }
+
+    .sec-eyebrow {
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: .65rem; letter-spacing: .16em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 14px;
+    }
+    .sec-eyebrow::before { content:''; width:20px; height:1px; background:var(--accent); opacity:.7; }
+
+    h2 {
+      font-size: 2rem; font-weight: 700;
+      letter-spacing: -.03em; line-height: 1.15; margin-bottom: 16px;
+    }
+    .divider {
+      width: 48px; height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      border-radius: 2px; margin: 20px 0 32px;
+    }
+    .sec-lead {
+      font-size: 1rem; color: var(--muted2); line-height: 1.8;
+      margin-bottom: 36px; max-width: 640px;
+    }
+    p { color: var(--muted2); margin-bottom: 16px; line-height: 1.85; }
+    code {
+      font-family: 'IBM Plex Mono', monospace; font-size: .82em;
+      color: var(--accent); background: rgba(0,212,255,.06);
+      padding: 2px 7px; border-radius: 5px;
+    }
+
+    /* BUTTONS */
+    .btn-download {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--accent); color: var(--bg);
+      padding: 14px 28px; border-radius: 8px; font-weight: 600;
+      text-decoration: none; transition: transform .2s, box-shadow .2s;
+    }
+    .btn-download:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
+    }
+
+    /* STEPS */
+    .steps { display: flex; flex-direction: column; }
+    .step { display: grid; grid-template-columns: 52px 1fr; gap: 0 22px; position: relative; }
+    .step-connector {
+      position: absolute; left: 25px; top: 52px; bottom: 0;
+      width: 2px; background: linear-gradient(to bottom, var(--border-light), transparent);
+    }
+    .step-num {
+      width: 52px; height: 52px; border-radius: 14px;
+      background: var(--card); border: 1px solid var(--border-light);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'IBM Plex Mono', monospace; font-size: .72rem; font-weight: 700;
+      color: var(--accent); flex-shrink: 0; position: relative; z-index: 1;
+    }
+    .step-body { padding: 12px 0 44px; }
+    .step-title {
+      font-size: 1.05rem; font-weight: 500; letter-spacing: -.01em;
+      color: var(--text); margin-bottom: 8px; line-height: 1.4;
+    }
+    .step-desc { font-size: .92rem; color: var(--muted2); margin-bottom: 14px; line-height: 1.75; }
+
+    /* CODE */
+    .code-block {
+      background: #060a10; border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden; margin: 14px 0;
+    }
+    .code-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 9px 16px; background: rgba(255,255,255,.02); border-bottom: 1px solid var(--border);
+    }
+    .code-lang {
+      font-family: 'IBM Plex Mono', monospace; font-size: .62rem;
+      color: var(--muted); letter-spacing: .12em; text-transform: uppercase;
+    }
+    .copy-btn {
+      background: none; border: none; color: var(--muted); cursor: pointer;
+      font-family: 'IBM Plex Mono', monospace; font-size: .62rem;
+      letter-spacing: .08em; padding: 4px 10px; border-radius: 6px;
+      transition: background .2s, color .2s;
+    }
+    .copy-btn:hover { background: rgba(0,212,255,.1); color: var(--accent); }
+    pre {
+      padding: 20px 22px; overflow-x: auto;
+      font-family: 'IBM Plex Mono', monospace; font-size: .82rem;
+      line-height: 2; color: #93c5fd;
+    }
+    pre .comment { color: #2d4a6a; }
+    pre .cmd { color: #6ee7b7; }
+    pre .flag { color: #fbbf24; }
+    pre .path { color: #c4b5fd; }
+
+    /* CARDS */
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px,1fr)); gap: 14px; margin: 24px 0; }
+    .card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 22px 24px; position: relative; overflow: hidden;
+      transition: border-color .25s, transform .25s;
+    }
+    .card:hover { border-color: var(--border-light); transform: translateY(-3px); }
+    .card-icon {
+      width: 32px; height: 32px; border-radius: 8px;
+      background: rgba(0,212,255,.08); border: 1px solid rgba(0,212,255,.15);
+      display: flex; align-items: center; justify-content: center; margin-bottom: 14px;
+    }
+    .card-icon svg { width: 16px; height: 16px; stroke: var(--accent); fill: none; stroke-width: 1.5; stroke-linecap: round; }
+    .card-title { font-weight: 500; font-size: .95rem; margin-bottom: 6px; color: var(--text); letter-spacing: -.01em; }
+    .card-text { color: var(--muted2); font-size: .87rem; line-height: 1.65; }
+    .card.accent { border-color: rgba(0,212,255,.2); }
+    .card.accent::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+
+    /* ALERTS */
+    .alert {
+      display: flex; gap: 14px; align-items: flex-start;
+      border-radius: 12px; padding: 16px 20px; margin: 18px 0;
+      font-size: .9rem; line-height: 1.7;
+    }
+    .alert.warn { background: rgba(220,38,38,.06); border: 1px solid rgba(220,38,38,.2); color: #fca5a5; }
+    .alert.info { background: rgba(0,212,255,.05); border: 1px solid rgba(0,212,255,.18); color: #7dd3fc; }
+    .alert.ok { background: rgba(14,164,114,.06); border: 1px solid rgba(14,164,114,.2); color: #6ee7b7; }
+    .alert-icon { flex-shrink: 0; margin-top: 2px; }
+    .alert-icon svg { width: 18px; height: 18px; stroke-width: 1.8; stroke-linecap: round; fill: none; display: block; }
+    .alert.warn .alert-icon svg { stroke: #f87171; }
+    .alert.info .alert-icon svg { stroke: #38bdf8; }
+    .alert.ok .alert-icon svg { stroke: #34d399; }
+
+    /* TABLE */
+    .table-wrap {
+      overflow-x: auto; margin: 18px 0; border-radius: 12px; border: 1px solid var(--border);
+    }
+    table { width: 100%; border-collapse: collapse; font-size: .88rem; min-width: 380px; }
+    th {
+      background: rgba(0,212,255,.04); color: var(--accent);
+      font-family: 'IBM Plex Mono', monospace; font-size: .62rem;
+      letter-spacing: .12em; text-transform: uppercase;
+      padding: 13px 18px; text-align: left; border-bottom: 1px solid var(--border); white-space: nowrap;
+    }
+    td { padding: 12px 18px; border-bottom: 1px solid rgba(30,45,64,.6); color: var(--muted2); vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,.015); }
+    .tag { display: inline-block; padding: 3px 10px; border-radius: 100px; font-size: .72rem; font-weight: 500; }
+    .tag.green { background: rgba(14,164,114,.12); color: #34d399; }
+    .tag.red { background: rgba(220,38,38,.1); color: #f87171; }
+    .tag.yellow { background: rgba(217,119,6,.12); color: #fbbf24; }
+
+    /* ARCH DIAGRAM */
+    .arch-diagram {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 36px; margin: 28px 0;
+    }
+    .arch-flow { display: flex; align-items: center; justify-content: center; flex-wrap: nowrap; gap: 0; }
+    .arch-box {
+      background: var(--surface); border: 1px solid var(--border-light);
+      border-radius: 12px; padding: 18px 22px; min-width: 120px; text-align: center; flex-shrink: 0;
+    }
+    .arch-box.hl { border-color: rgba(0,212,255,.35); background: rgba(0,212,255,.05); }
+    .ab-icon {
+      width: 36px; height: 36px; border-radius: 8px; margin: 0 auto 10px;
+      background: var(--card); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .ab-icon svg { width: 18px; height: 18px; stroke: var(--muted2); fill: none; stroke-width: 1.5; stroke-linecap: round; }
+    .arch-box.hl .ab-icon svg { stroke: var(--accent); }
+    .ab-label { font-family: 'IBM Plex Mono', monospace; font-size: .68rem; letter-spacing: .06em; color: var(--muted2); line-height: 1.4; }
+    .arch-box.hl .ab-label { color: var(--accent); }
+    .arch-arr { flex-shrink: 0; margin: 0 12px; }
+    .arch-arr svg { width: 22px; height: 14px; stroke: var(--border-light); fill: none; stroke-width: 1.5; stroke-linecap: round; display: block; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border); padding: 36px 6vw;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+      font-family: 'IBM Plex Mono', monospace; font-size: .68rem; color: var(--muted); letter-spacing: .06em;
+    }
+    .footer-brand { color: var(--accent); }
+
+    /* TOP BTN */
+    #topBtn {
+      position: fixed; bottom: 32px; right: 32px; width: 44px; height: 44px;
+      background: var(--card); border: 1px solid var(--border-light); color: var(--muted2);
+      border-radius: 12px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transform: translateY(8px);
+      transition: opacity .3s, transform .3s, border-color .2s, color .2s; z-index: 200;
+    }
+    #topBtn.show { opacity: 1; transform: translateY(0); }
+    #topBtn:hover { border-color: var(--accent); color: var(--accent); }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="hglow hglow1"></div>
+  <div class="hglow hglow2"></div>
+
+  <div class="eyebrow">
+    <span class="eyebrow-dot"></span>
+    <span class="eyebrow-line"></span>
+    Proyecto Final de Grado · SMR
+  </div>
+
+  <div class="header-title">
+    <div>
+      <h1><span class="accent-word">Blockade</span></h1>
+      <div class="h1-sub">Manual de Usuario</div>
+    </div>
+    <img src="logo-blockade.png" alt="Blockade logo" class="header-logo" />
+  </div>
+
+  <div class="header-meta">
+    <div class="meta-item">
+      <span class="meta-label">Autor</span>
+      <span class="meta-value">Álvaro González Román</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Sistema operativo</span>
+      <span class="meta-value">Debian GNU/Linux 13</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Motor de filtrado</span>
+      <span class="meta-value">AdGuard Home</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">IP del servidor</span>
+      <span class="meta-value">192.168.0.100</span>
+    </div>
+  </div>
+</header>
+
+<nav>
+  <a href="#descarga"><span class="nav-num">00</span>Descarga de OVA</a>
+  <a href="#especificaciones"><span class="nav-num">01</span>Especificaciones</a>
+  <a href="#arquitectura"><span class="nav-num">02</span>Arquitectura</a>
+  <a href="#instalacion"><span class="nav-num">03</span>Instalación</a>
+  <a href="#adguard"><span class="nav-num">04</span>AdGuard Home</a>
+  <a href="#bloqueos"><span class="nav-num">05</span>Bloqueos</a>
+  <a href="#dhcp"><span class="nav-num">06</span>DHCP</a>
+  <a href="#dns"><span class="nav-num">07</span>DNS / BIND9</a>
+  <a href="#webserver"><span class="nav-num">08</span>Servidor Web</a>
+  <a href="#iptables"><span class="nav-num">09</span>IPTables</a>
+</nav>
+
+<main>
+
+  <section id="descarga">
+    <div class="sec-eyebrow">00 Requisito previo</div>
+    <h2>Máquina Virtual Lista para Usar</h2>
+    <div class="divider"></div>
+    <p class="sec-lead">Blockade ha sido diseñado como una solución "Plug & Play" para el usuario final. Para evitar el despliegue manual desde cero, se ha preparado una máquina virtual (archivo <code>.ova</code>) completamente preconfigurada.</p>
+    
+    <div class="alert info">
+      <div class="alert-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+      <div>Esta máquina ya incluye los adaptadores de red ajustados (NAT e Interna), el firewall IPTables configurado, y todos los servicios descritos en este manual instalados y sincronizados.</div>
+    </div>
+
+    <div style="margin-top: 32px; display: flex; justify-content: center;">
+      <a href="#" class="btn-download">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        Descargar Archivo .OVA
+      </a>
+    </div>
+  </section>
+
+  <section id="especificaciones">
+    <div class="sec-eyebrow">01 Configuración del Sistema</div>
+    <h2>Especificaciones Configuradas</h2>
+    <div class="divider"></div>
+    <p class="sec-lead">Esta máquina ha sido configurada completamente con todas las especificaciones de red y servicios necesarios para funcionar como filtro de contenido centralizado. Los parámetros incluyen la arquitectura de red, los servicios activos, las reglas de firewall y la configuración del servidor de nombres.</p>
+    
+    <div class="alert info">
+      <div class="alert-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+      <div>Encontrarás la configuración completa y los scripts de instalación en el repositorio. Descargalo para acceder a toda la documentación técnica detallada.</div>
+    </div>
+
+    <div style="margin-top: 32px; display: flex; justify-content: center;">
+      <a href="https://github.com/Penearo/BLOCKADE/tree/main#" class="btn-download" target="_blank" rel="noopener noreferrer">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        Descargar Repositorio
+      </a>
+    </div>
+  </section>
+
+  <section id="arquitectura">
+    <div class="sec-eyebrow">02 Visión general</div>
+    <h2>Arquitectura del sistema</h2>
+    <div class="divider"></div>
+    <p class="sec-lead">Blockade actúa como filtro centralizado a nivel de red. Todo el tráfico del hogar pasa a través del servidor antes de llegar a Internet, donde AdGuard Home bloquea dominios maliciosos, publicidad y contenido inapropiado sin que ningún dispositivo pueda esquivarlo. Ideal para familias preocupadas por el control parental, pero sin conocimientos técnicos avanzados.</p>
+
+    <div class="arch-diagram">
+      <div class="arch-flow">
+        <div class="arch-box">
+          <div class="ab-icon">
+            <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          </div>
+          <div class="ab-label">Cliente<br>(dispositivo hijo)</div>
+        </div>
+        <div class="arch-arr"><svg viewBox="0 0 22 14"><path d="M1 7h18M14 1l6 6-6 6"/></svg></div>
+        <div class="arch-box hl">
+          <div class="ab-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="ab-label">Servidor Blockade<br>192.168.0.100</div>
+        </div>
+        <div class="arch-arr"><svg viewBox="0 0 22 14"><path d="M1 7h18M14 1l6 6-6 6"/></svg></div>
+        <div class="arch-box">
+          <div class="ab-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <div class="ab-label">Internet</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cards">
+      <div class="card accent">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+        </div>
+        <div class="card-title">Servidor — Debian 13</div>
+        <div class="card-text">Máquina principal que controla todo el tráfico de internet en casa.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="card-title">AdGuard Home</div>
+        <div class="card-text">Herramienta que bloquea sitios peligrosos, publicidad y contenido no adecuado.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        </div>
+        <div class="card-title">Cliente — Windows 11</div>
+        <div class="card-text">Dispositivo del usuario (como un ordenador) que usa el filtro del servidor.</div>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="instalacion">
+    <div class="sec-eyebrow">Paso 3</div>
+    <h2>03 Instalación del servidor</h2>
+    <div class="divider"></div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-connector"></div>
+        <div class="step-body">
+          <div class="step-title">Importar la OVA de Debian 13 en VirtualBox</div>
+          <div class="step-desc">Abrir VirtualBox → Archivo → Importar servicio virtualizado y seleccionar el archivo <code>.ova</code> de Debian 13 con 1024 MB de RAM.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-connector"></div>
+        <div class="step-body">
+          <div class="step-title">Configurar los dos adaptadores de red</div>
+          <div class="step-desc">En Configuración de la VM → Red, establecer las dos tarjetas:</div>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Adaptador</th><th>Modo</th><th>Uso</th></tr>
+              <tr><td>Adaptador 1 (enp0s3)</td><td><span class="tag yellow">NAT</span></td><td>Salida a Internet</td></tr>
+              <tr><td>Adaptador 2 (enp0s8)</td><td><span class="tag green">Red Interna</span></td><td>LAN del hogar (servidor-hijo)</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-connector"></div>
+        <div class="step-body">
+          <div class="step-title">Actualizar el sistema e instalar SSH</div>
+          <div class="code-block">
+            <div class="code-bar"><span class="code-lang">Bash</span><button class="copy-btn" onclick="copyCode(this)">Copiar</button></div>
+            <pre><span class="comment"># Actualizar lista de paquetes</span>
+<span class="cmd">apt update && apt upgrade -y</span>
+
+<span class="comment"># Instalar SSH para trabajar remotamente de forma cómoda</span>
+<span class="cmd">apt install ssh -y</span></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-connector"></div>
+        <div class="step-body">
+          <div class="step-title">Instalar curl y descargar AdGuard Home</div>
+          <div class="code-block">
+            <div class="code-bar"><span class="code-lang">Bash</span><button class="copy-btn" onclick="copyCode(this)">Copiar</button></div>
+            <pre><span class="cmd">apt install curl -y</span>
+
+<span class="comment"># Descargar e instalar AdGuard Home con su script oficial</span>
+<span class="cmd">curl -s -S -L \
+  https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/master/scripts/install.sh \
+  | sh -s -- -v</span></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">05</div>
+        <div class="step-connector"></div>
+        <div class="step-body">
+          <div class="step-title">Asignar IP fija al adaptador de red interna</div>
+          <div class="step-desc">Editar el archivo de interfaces para fijar la IP <code>192.168.0.100</code> en <code>enp0s8</code>:</div>
+          <div class="code-block">
+            <div class="code-bar"><span class="code-lang">Bash</span><button class="copy-btn" onclick="copyCode(this)">Copiar</button></div>
+            <pre><span class="cmd">nano <span class="path">/etc/network/interfaces</span></span>
+
+<span class="comment"># Añadir al final del archivo:</span>
+auto enp0s8
+iface enp0s8 inet static
+    address 192.168.0.100
+    netmask 255.255.255.0</pre>
+          </div>
+          <div class="code-block">
+            <div class="code-bar"><span class="code-lang">Bash</span><button class="copy-btn" onclick="copyCode(this)">Copiar</button></div>
+            <pre><span class="cmd">systemctl restart networking</span></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">06</div>
+        <div class="step-body">
+          <div class="step-title">Configurar IP estática en el cliente Windows (Temporal)</div>
+          <div class="step-desc">Para poder acceder al panel de AdGuard antes de configurar el DHCP, en la máquina Windows 11 configuramos temporalmente la IP manual:</div>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Campo</th><th>Valor de ejemplo</th></tr>
+              <tr><td>Dirección IP</td><td>192.168.0.101</td></tr>
+              <tr><td>Máscara de subred</td><td>255.255.255.0</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="adguard">
+    <div class="sec-eyebrow">Paso 4</div>
+    <h2>04 Configuración de AdGuard Home</h2>
+    <div class="divider"></div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-connector"></div>
+        <div class="step-body">
+          <div class="step-title">Acceder al asistente de configuración inicial</div>
+          <div class="step-desc">Desde el navegador del cliente Windows, abrir la siguiente URL:</div>
+          <div class="code-block">
+            <div class="code-bar"><span class="code-lang">URL</span><button class="copy-btn" onclick="copyCode(this)">Copiar</button></div>
+            <pre>http://192.168.0.100:3000</pre>
+          </div>
+          <div class="step-desc">El asistente guiará paso a paso la configuración. En el paso 2, asignamos la interfaz web al puerto <code>80</code> (que luego modificaremos al 3000) y el servidor DNS al puerto <code>53</code>.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-body">
+          <div class="step-title">Crear el usuario administrador</div>
+          <div class="step-desc">En el asistente, establecer las credenciales de acceso para gestionar la herramienta:</div>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Campo</th><th>Valor de ejemplo</th></tr>
+              <tr><td>Usuario</td><td>Admin</td></tr>
+              <tr><td>Contraseña</td><td>Admin@123</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="bloqueos">
+    <div class="sec-eyebrow">Paso 5</div>
+    <h2>05 Configurar bloqueos y listas DNS</h2>
+    <div class="divider"></div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-connector"></div>
+        <div class="step-body">
+          <div class="step-title">Bloquear servicios por categoría</div>
+          <div class="step-desc">En el panel de AdGuard: <strong>Filtros → Servicios bloqueados</strong>. Seleccionamos las webs a las que no queremos que nuestro hijo acceda (por ejemplo: Discord, ChatGPT, TikTok, etc.).</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-connector"></div>
+        <div class="step-body">
+          <div class="step-title">Añadir listas de bloqueo DNS</div>
+          <div class="step-desc">En el panel: <strong>Filtros → Lista de bloqueo DNS → Añadir lista</strong>. Seleccionamos las 4 listas principales para bloquear malware y phishing:</div>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Lista</th><th>Protege contra</th></tr>
+              <tr><td>AdGuard DNS Filter</td><td>Publicidad y rastreadores</td></tr>
+              <tr><td>HaGeZi's Threat Intelligence Feeds</td><td>Diferentes amenazas recopiladas</td></tr>
+              <tr><td>NoCoin Filter List</td><td>Minería de criptomonedas en web</td></tr>
+              <tr><td>Phishing Army</td><td>Phishing y estafas</td></tr>
+              <tr><td>Malicious URL Blocklist (URLHaus)</td><td>Dominios de malware conocido</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-connector"></div>
+        <div class="step-body">
+          <div class="step-title">Activar Modo Familia y Búsqueda Segura</div>
+          <div class="step-desc">En <strong>Configuración → Configuración de DNS</strong>, marcamos las casillas de:</div>
+          <ul style="margin-left: 20px; color: var(--muted2); font-size: 0.95rem;">
+            <li>Usar el servicio web de seguridad de navegación de AdGuard</li>
+            <li>Usar el control parental de AdGuard</li>
+            <li>Usar búsqueda segura (Bing, Duckduckgo, Google, YouTube...)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-body">
+          <div class="step-title">Verificar que el bloqueo funciona</div>
+          <div class="step-desc">Desde el cliente Windows, intentamos acceder a <code>discord.com</code>. Si el filtro funciona, el navegador mostrará un error de conexión (<code>ERR_ADDRESS_INVALID</code>).</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="dhcp">
+    <div class="sec-eyebrow">Paso 6</div>
+    <h2>06 Configurar el servidor DHCP</h2>
+    <div class="divider"></div>
+    <p class="sec-lead">Instalamos DHCP para que asigne automáticamente las IPs, la puerta de enlace y el DNS a los clientes de la red interna, permitiendo que salgan a Internet a través de la tarjeta NAT del servidor.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-connector"></div>
+        <div class="step-body">
+          <div class="step-title">Instalar el servidor DHCP</div>
+          <div class="code-block">
+            <div class="code-bar"><span class="code-lang">Bash</span><button class="copy-btn" onclick="copyCode(this)">Copiar</button></div>
+            <pre><span class="cmd">apt install isc-dhcp-server -y</span></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-connector"></div>
+        <div class="step-body">
+          <div class="step-title">Indicar el adaptador que gestionará el DHCP</div>
+          <div class="code-block">
+            <div class="code-bar"><span class="code-lang">Bash</span><button class="copy-btn" onclick="copyCode(this)">Copiar</button></div>
+            <pre><span class="cmd">nano <span class="path">/etc/default/isc-dhcp-server</span></span>
+
+<span class="comment"># Modificar esta línea especificando IPv4:</span>
+INTERFACESv4="enp0s8"</pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-connector"></div>
+        <div class="step-body">
+          <div class="step-title">Definir el rango de IPs, la puerta de enlace y el DNS</div>
+          <div class="code-block">
+            <div class="code-bar"><span class="code-lang">Bash</span><button class="copy-btn" onclick="copyCode(this)">Copiar</button></div>
+            <pre><span class="cmd">nano <span class="path">/etc/dhcp/dhcpd.conf</span></span>
+
+<span class="comment"># Añadir/modificar la configuración principal:</span>
+option domain-name "blockade.com";
+option domain-name-servers 192.168.0.100;
+
+default-lease-time 600;
+max-lease-time 7200;
+
+subnet 192.168.0.0 netmask 255.255.255.0 {
+    <span class="flag">range 192.168.0.20 192.168.0.40;</span>
+    option routers 192.168.0.100;
+    <span class="flag">option domain-name-servers 192.168.0.100;</span>
+}</pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-body">
+          <div class="step-title">Activar DHCP y comprobar en el cliente</div>
+          <div class="code-block">
+            <div class="code-bar"><span class="code-lang">Bash</span><button class="copy-btn" onclick="copyCode(this)">Copiar</button></div>
+            <pre><span class="cmd">systemctl restart isc-dhcp-server</span>
+<span class="cmd">systemctl status isc-dhcp-server</span></pre>
+          </div>
+          <div class="step-desc">En la máquina Windows (CMD), borrar la configuración manual anterior y forzar la nueva concesión:</div>
+          <div class="code-block">
+            <div class="code-bar"><span class="code-lang">CMD</span><button class="copy-btn" onclick="copyCode(this)">Copiar</button></div>
+            <pre><span class="cmd">ipconfig /release</span>
+<span class="cmd">ipconfig /renew</span></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="dns">
+    <div class="sec-eyebrow">Paso 7</div>
+    <h2>07 Configurar DNS con BIND9</h2>
+    <div class="divider"></div>
+    <p class="sec-lead">Vamos a indicarle a AdGuard, que lleva un DNS integrado, que le ceda el puerto estándar a BIND9, el cual se encargará de reenviar las peticiones al motor de filtrado.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-connector"></div>
+        <div class="step-body">
+          <div class="step-title">Instalar BIND9</div>
+          <div class="code-block">
+            <div class="code-bar"><span class="code-lang">Bash</span><button class="copy-btn" onclick="copyCode(this)">Copiar</button></div>
+            <pre><span class="cmd">apt install bind9 bind9-doc -y</span></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-connector"></div>
+        <div class="step-body">
+          <div class="step-title">Cambiar el puerto DNS de AdGuard al 5454</div>
+          <div class="code-block">
+            <div class="code-bar"><span class="code-lang">Bash</span><button class="copy-btn" onclick="copyCode(this)">Copiar</button></div>
+            <pre><span class="cmd">systemctl stop AdGuardHome</span>
+<span class="cmd">nano <span class="path">/opt/AdGuardHome/AdGuardHome.yaml</span></span>
+
+<span class="comment"># Asegurarse de mantener la web en el 3000 y cambiar el DNS al 5454:</span>
+http:
+  address: 0.0.0.0:3000
+dns:
+  <span class="flag">port: 5454</span></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-connector"></div>
+        <div class="step-body">
+          <div class="step-title">Configurar BIND9 para reenviar a AdGuard</div>
+          <div class="step-desc">Le indicamos a BIND que escuche en nuestra IP, permita consultas de cualquiera y reenvíe el tráfico a Internet al puerto 5454.</div>
+          <div class="code-block">
+            <div class="code-bar"><span class="code-lang">Bash</span><button class="copy-btn" onclick="copyCode(this)">Copiar</button></div>
+            <pre><span class="cmd">nano <span class="path">/etc/bind/named.conf.options</span></span>
+
+options {
+    directory "/var/cache/bind";
+    <span class="flag">listen-on { 192.168.0.100; 127.0.0.1; };</span>
+    recursion yes;
+    allow-query { any; };
+    forwarders {
+        <span class="flag">127.0.0.1 port 5454;</span>
+    };
+    forward only;
+    dnssec-validation no;
+};</pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-connector"></div>
+        <div class="step-body">
+          <div class="step-title">Declarar la zona local blockade.com</div>
+          <div class="code-block">
+            <div class="code-bar"><span class="code-lang">Bash</span><button class="copy-btn" onclick="copyCode(this)">Copiar</button></div>
+            <pre><span class="cmd">nano <span class="path">/etc/bind/named.conf.local</span></span>
+
+zone "blockade.com" {
+    type master;
+    file "/etc/bind/db.blockade.com";
+};</pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">05</div>
+        <div class="step-connector"></div>
+        <div class="step-body">
+          <div class="step-title">Crear el archivo de zona directa</div>
+          <div class="code-block">
+            <div class="code-bar"><span class="code-lang">Bash</span><button class="copy-btn" onclick="copyCode(this)">Copiar</button></div>
+            <pre><span class="cmd">nano <span class="path">/etc/bind/db.blockade.com</span></span>
+
+$TTL 604800
+@   IN  SOA  ns1.blockade.com. admin.blockade.com. (
+              2       ; Serial
+         604800       ; Refresh
+          86400       ; Retry
+        2419200       ; Expire
+         604800 )     ; Negative Cache TTL
+
+@       IN  NS   ns1.blockade.com.
+ns1     IN  A    192.168.0.100
+<span class="flag">manual  IN  A    192.168.0.100</span></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">06</div>
+        <div class="step-body">
+          <div class="step-title">Apuntar el DNS del servidor a sí mismo</div>
+          <div class="code-block">
+            <div class="code-bar"><span class="code-lang">Bash</span><button class="copy-btn" onclick="copyCode(this)">Copiar</button></div>
+            <pre><span class="cmd">nano <span class="path">/etc/resolv.conf</span></span>
+
+<span class="flag">nameserver 192.168.0.100</span></pre>
+          </div>
+          <div class="code-block">
+            <div class="code-bar"><span class="code-lang">Bash</span><button class="copy-btn" onclick="copyCode(this)">Copiar</button></div>
+            <pre><span class="cmd">systemctl restart bind9</span>
+<span class="cmd">systemctl start AdGuardHome</span></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="webserver">
+    <div class="sec-eyebrow">Paso 8</div>
+    <h2>08 Servidor Web (Alojamiento del Manual)</h2>
+    <div class="divider"></div>
+    <p class="sec-lead">Instalaremos un servidor web local para hospedar este manual de usuario de forma que sea accesible internamente desde el dominio configurado.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-body">
+          <div class="step-title">Instalar Apache2</div>
+          <div class="code-block">
+            <div class="code-bar"><span class="code-lang">Bash</span><button class="copy-btn" onclick="copyCode(this)">Copiar</button></div>
+            <pre><span class="cmd">apt install apache2 -y</span></pre>
+          </div>
+          <div class="step-desc">Una vez instalado, el manual será accesible mediante el registro que configuramos en BIND9 en el paso anterior.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="iptables">
+    <div class="sec-eyebrow">Paso 9</div>
+    <h2>09 Forzar el DNS con IPTables</h2>
+    <div class="divider"></div>
+    <p class="sec-lead">Sin estas reglas, cualquier usuario puede cambiar el DNS en su dispositivo y saltarse todos los filtros. IPTables intercepta cualquier petición DNS y la redirige al servidor obligatoriamente.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-connector"></div>
+        <div class="step-body">
+          <div class="step-title">Activar el reenvío de paquetes IP (IP Forwarding)</div>
+          <div class="step-desc">Crea un archivo en sysctl para que el Kernel active el enrutamiento y no lo pierda en reinicios:</div>
+          <div class="code-block">
+            <div class="code-bar"><span class="code-lang">Bash</span><button class="copy-btn" onclick="copyCode(this)">Copiar</button></div>
+            <pre><span class="cmd">echo "net.ipv4.ip_forward=1" > /etc/sysctl.d/99-router.conf</span></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-connector"></div>
+        <div class="step-body">
+          <div class="step-title">Aplicar reglas NAT y redirección DNS obligatoria</div>
+          <div class="step-desc">Limpiamos reglas anteriores, aplicamos el enmascaramiento para la salida a internet y obligamos al tráfico TCP/UDP por el puerto 53 a usar el servidor local.</div>
+          <div class="code-block">
+            <div class="code-bar"><span class="code-lang">Bash</span><button class="copy-btn" onclick="copyCode(this)">Copiar</button></div>
+            <pre><span class="comment"># Borrar reglas previas</span>
+<span class="cmd">iptables -t nat -F</span>
+
+<span class="comment"># Salida a internet (NAT)</span>
+<span class="cmd">iptables -t nat -A POSTROUTING -o enp0s3 -j MASQUERADE</span>
+
+<span class="comment"># Obligar DNS local (UDP y TCP)</span>
+<span class="cmd">iptables -t nat -A PREROUTING -i enp0s8 -p udp --dport 53 -j REDIRECT --to-port 53</span>
+<span class="cmd">iptables -t nat -A PREROUTING -i enp0s8 -p tcp --dport 53 -j REDIRECT --to-port 53</span></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-body">
+          <div class="step-title">Guardar las reglas de forma persistente</div>
+          <div class="step-desc">Para que IPTables no olvide la configuración de seguridad al reiniciar el servidor:</div>
+          <div class="code-block">
+            <div class="code-bar"><span class="code-lang">Bash</span><button class="copy-btn" onclick="copyCode(this)">Copiar</button></div>
+            <pre><span class="cmd">apt install iptables-persistent -y</span></pre>
+          </div>
+          <div class="step-desc">Al instalar, nos aparecerá una ventana gráfica para confirmar. Seleccionamos <strong>&lt;Sí&gt;</strong> para guardar las reglas IPv4 actuales.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert ok" style="margin-top:44px">
+      <div class="alert-icon"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+      <div><strong>Infraestructura Blockade completada.</strong> Todos los dispositivos de la red interna tienen sus peticiones DNS filtradas con control parental activo y protección contra malware, sin posibilidad de ser evitado desde los clientes.</div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span class="footer-brand">BLOCKADE</span>
+  <span>Proyecto Final de Grado · SMR · Álvaro González Román</span>
+  <span>Debian 13 + AdGuard Home + BIND9 + Apache2</span>
+</footer>
+
+<button id="topBtn" title="Volver arriba" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
+
+<script>
+  function copyCode(btn) {
+    const pre = btn.closest('.code-block').querySelector('pre');
+    navigator.clipboard.writeText(pre.innerText).then(() => {
+      btn.textContent = 'Copiado';
+      setTimeout(() => btn.textContent = 'Copiar', 1600);
+    });
+  }
+
+  window.addEventListener('scroll', () => {
+    document.getElementById('topBtn').classList.toggle('show', window.scrollY > 400);
+  });
+
+  const secs = document.querySelectorAll('section[id]');
+  const links = document.querySelectorAll('nav a');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    secs.forEach(s => { if (window.scrollY >= s.offsetTop - 130) cur = s.id; });
+    links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
+  });
+</script>
+</body>
+</html>
