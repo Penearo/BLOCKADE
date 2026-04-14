@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blockade – Manual de Usuario</title>
+  <link rel="icon" type="image/png" href="logo-blockade.png">
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=DM+Sans:opsz,wght@9..40,300;400;500;700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -349,7 +350,43 @@
 </nav>
 
 <main>
+<section id="descarga-ova">
+    <div class="sec-eyebrow">00 Requisito Previo</div>
+    <h2>Máquina Virtual Lista para Usar</h2>
+    <div class="divider"></div>
+    <p class="sec-lead">Blockade ha sido diseñado como una solución "Plug & Play" para el usuario final. Para evitar el despliegue manual desde cero, se ha preparado una máquina virtual (archivo <code>.ova</code>) completamente preconfigurada.</p>
 
+    <div class="alert info">
+      <div class="alert-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+      <div>Esta máquina ya incluye los adaptadores de red ajustados (NAT e Interna), el firewall IPTables configurado, y todos los servicios descritos en este manual instalados y sincronizados.</div>
+    </div>
+
+    <div style="text-align: center; margin-top: 36px;">
+      <a href="https://drive.google.com/file/d/1Ynns4n5ZE_wU_cgHa6YiPFrng2QpqwDW/view?usp=sharing" target="_blank" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: var(--accent); color: var(--bg); padding: 14px 28px; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 1rem; transition: transform 0.2s;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Descargar Archivo .OVA
+      </a>
+    </div>
+  </section>
+
+  <section id="descarga-repo">
+    <div class="sec-eyebrow">01 Configuración del Sistema</div>
+    <h2>Especificaciones Configuradas</h2>
+    <div class="divider"></div>
+    <p class="sec-lead">Esta máquina ha sido configurada completamente con todas las especificaciones de red y servicios necesarios para funcionar como filtro de contenido centralizado. Los parámetros incluyen la arquitectura de red, los servicios activos, las reglas de firewall y la configuración del servidor de nombres.</p>
+
+    <div class="alert info">
+      <div class="alert-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+      <div>Encontrarás la configuración completa y los scripts de instalación en el repositorio. Descárgalo para acceder a toda la documentación técnica detallada.</div>
+    </div>
+
+    <div style="text-align: center; margin-top: 36px;">
+      <a href="https://github.com/Alvarogonrom/BLOCKADE" target="_blank" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: var(--accent); color: var(--bg); padding: 14px 28px; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 1rem; transition: transform 0.2s;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Descargar Repositorio
+      </a>
+    </div>
+  </section>
   <!-- 00 ARQUITECTURA -->
   <section id="arquitectura">
     <div class="sec-eyebrow">Visión general</div>
